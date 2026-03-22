@@ -212,6 +212,9 @@ fallback = the result of running missing.unwrap_or <span class="keyword">with</s
                         <tr><td><code>option.unwrap</code></td><td>Get the value or raise an error if empty.</td></tr>
                         <tr><td><code>option.unwrap_or with x</code></td><td>Get the value or use a fallback.</td></tr>
                         <tr><td><code>option.or_else with x</code></td><td>Return the original Option or a fallback Option.</td></tr>
+                        <tr><td><code>option.map with fn</code></td><td>Apply function to inner value.</td></tr>
+                        <tr><td><code>option.filter with pred</code></td><td>Filter inner value by predicate.</td></tr>
+                        <tr><td><code>option.and_then with fn</code></td><td>Chain another Option-returning function.</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -356,8 +359,14 @@ skip.  <span class="comment">/- continue</span></code></pre>
             <div class="code-block glass">
                 <pre><code>nums = a list of 1, 2, 3.
 <span class="keyword">add</span> 4 <span class="keyword">to</span> nums.
-<span class="keyword">remove</span> 2 <span class="keyword">from</span> nums.</code></pre>
+<span class="keyword">remove</span> 2 <span class="keyword">from</span> nums.
+
+<span class="comment">/- Functional Methods</span>
+doubled = the result of running nums.map with (define double needing x: give x * 2. end.).
+evens = the result of running nums.filter with is_even.
+total = the result of running nums.sum.</code></pre>
             </div>
+            <p>Supported methods: <code>map</code>, <code>filter</code>, <code>reduce</code>, <code>any</code>, <code>all</code>, <code>sum</code>, <code>join</code>, <code>count</code>.</p>
         </section>
 
         <section id="maps" class="section">
@@ -374,8 +383,14 @@ user.email = <span class="string">"alice@example.com"</span>.
 config = a map of host: <span class="string">"localhost"</span>, port: 8080.
 
 <span class="comment">/- map comprehension</span>
-upper_map = k: the result of running strings.upper with v for k, v in mymap.</code></pre>
+upper_map = k: the result of running strings.upper with v for k, v in mymap.
+
+<span class="comment">/- Functional Methods</span>
+expensive = the result of running prices.filter with is_high.
+keys = the result of running prices.keys.
+val = the result of running prices.get with "key", default.</code></pre>
             </div>
+            <p>Supported methods: <code>map</code>, <code>filter</code>, <code>keys</code>, <code>values</code>, <code>get</code>, <code>has</code>, <code>count</code>.</p>
         </section>
 
         <section id="enums" class="section">
