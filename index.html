@@ -37,6 +37,7 @@
                 <li class="nav-header">Language Basics</li>
                 <li class="nav-item"><a href="#syntax">General Syntax</a></li>
                 <li class="nav-item"><a href="#variables">Variables & Types</a></li>
+                <li class="nav-item"><a href="#options">Null Safety &amp; Options</a></li>
                 <li class="nav-item"><a href="#arithmetic">Arithmetic</a></li>
                 <li class="nav-item"><a href="#io">Input &amp; Output</a></li>
                 <li class="nav-item"><a href="#notes">Notes &amp; Docstrings</a></li>
@@ -176,7 +177,43 @@ say <span class="string">"Every statement ends with a period"</span>.
                 <pre><code>score = 100.
 name = <span class="string">"Alice"</span>.
 is_admin = true.
-null_vals = null.</code></pre>
+null_vals = null.
+maybe_name = some <span class="string">"Verba"</span>.
+missing_name = none.</code></pre>
+            </div>
+        </section>
+
+        <section id="options" class="section">
+            <h2>Null Safety &amp; Option Types</h2>
+            <p>Use <code>some value</code> when a value exists and <code>none</code> when it does not. This gives you a safer alternative to raw <code>null</code> for optional data.</p>
+            <div class="code-block glass">
+                <pre><code>name = some <span class="string">"Verba"</span>.
+missing = none.
+
+<span class="keyword">if</span> name is some:
+    safe_name = the result of running name.unwrap.
+    <span class="keyword">say</span> <span class="string">"Resolved: "</span>, safe_name.
+<span class="keyword">end.</span>
+
+fallback = the result of running missing.unwrap_or <span class="keyword">with</span> <span class="string">"Anonymous"</span>.
+<span class="keyword">say</span> fallback.
+
+<span class="keyword">if</span> missing is none:
+    <span class="keyword">say</span> <span class="string">"No value available."</span>.
+<span class="keyword">end.</span></code></pre>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead><tr><th>Feature</th><th>Meaning</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>some value</code></td><td>Create an Option containing a value.</td></tr>
+                        <tr><td><code>none</code></td><td>Create an empty Option.</td></tr>
+                        <tr><td><code>is some</code> / <code>is none</code></td><td>Check whether an Option holds a value.</td></tr>
+                        <tr><td><code>option.unwrap</code></td><td>Get the value or raise an error if empty.</td></tr>
+                        <tr><td><code>option.unwrap_or with x</code></td><td>Get the value or use a fallback.</td></tr>
+                        <tr><td><code>option.or_else with x</code></td><td>Return the original Option or a fallback Option.</td></tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
@@ -236,6 +273,7 @@ help MyClass.            <span class="comment">/- show class methods</span></cod
     <span class="keyword">say</span> <span class="string">"x is not 5."</span>.
 <span class="keyword">end.</span></code></pre>
             </div>
+            <p style="margin-top: 14px;">Checks such as <code>is null</code>, <code>is not null</code>, <code>is some</code>, and <code>is none</code> are all supported in conditions.</p>
         </section>
 
         <section id="loops" class="section">
