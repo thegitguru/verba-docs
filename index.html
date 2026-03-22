@@ -594,7 +594,16 @@ res = the result of running compute <span class="keyword">with</span> 10.</code>
 
         <section id="modules" class="section">
             <h2>Modules & Imports</h2>
-            <pre><code><span class="keyword">import from file called</span> <span class="string">"lib.vrb"</span> <span class="keyword">as</span> L.</code></pre>
+            <p>Imports allow you to reuse code from other <code>.vrb</code> files. If the extension is missing, <code>.vrb</code> is appended automatically.</p>
+            <div class="code-block glass">
+                <pre><code><span class="comment">/- Flexible import syntax</span>
+<span class="keyword">import</span> math.                          <span class="comment">/- Direct inclusion</span>
+<span class="keyword">import</span> math <span class="keyword">as</span> m.                      <span class="comment">/- Alias naming</span>
+<span class="keyword">import from</span> <span class="string">"utils.vrb"</span> <span class="keyword">as</span> u.          <span class="comment">/- With path string</span>
+<span class="keyword">import from file called</span> <span class="string">"lib.vrb"</span> <span class="keyword">as</span> L. <span class="comment">/- Verbose style</span>
+
+say the result of running m.factorial <span class="keyword">with</span> 5.</code></pre>
+            </div>
         </section>
 
         <section id="stdlib-strings" class="section">
