@@ -37,6 +37,7 @@
                 <li class="nav-header">Language Basics</li>
                 <li class="nav-item"><a href="#syntax">General Syntax</a></li>
                 <li class="nav-item"><a href="#variables">Variables & Types</a></li>
+                <li class="nav-item"><a href="#immutability">Constants & Immutability</a></li>
                 <li class="nav-item"><a href="#options">Null Safety &amp; Options</a></li>
                 <li class="nav-item"><a href="#arithmetic">Arithmetic</a></li>
                 <li class="nav-item"><a href="#io">Input &amp; Output</a></li>
@@ -180,6 +181,24 @@ is_admin = true.
 null_vals = null.
 maybe_name = some <span class="string">"Verba"</span>.
 missing_name = none.</code></pre>
+            </div>
+        </section>
+
+        <section id="immutability" class="section">
+            <h2>Constants & Immutability</h2>
+            <p>Verba supports constants using the <code>constant</code> keyword. Once a constant is assigned, it cannot be modified or reassigned.</p>
+            <div class="code-block glass">
+                <pre><code><span class="keyword">constant</span> PI = 3.14.
+PI = 3.15.  <span class="comment">/- Error: Cannot re-assign to constant 'pi'</span>
+
+<span class="keyword">constant</span> APP_NAME = <span class="string">"Verba Language"</span>.
+APP_NAME += <span class="string">" (v2)"</span>. <span class="comment">/- Error: Cannot re-assign to constant 'app_name'</span></code></pre>
+            </div>
+            <p style="margin-top: 14px;">To allow redefining a constant name, you must first explicitly <code>free</code> it:</p>
+            <div class="code-block glass">
+                <pre><code><span class="keyword">constant</span> X = 10.
+<span class="keyword">free</span> X.
+<span class="keyword">constant</span> X = 20. <span class="comment">/- Success</span></code></pre>
             </div>
         </section>
 
