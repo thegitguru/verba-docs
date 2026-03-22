@@ -82,6 +82,8 @@
                 <li class="nav-item"><a href="#stdlib-vibe">WebSockets (vibe)</a></li>
                 <li class="nav-header">Project Safety</li>
                 <li class="nav-item"><a href="#testing">Testing & Assert</a></li>
+                <li class="nav-header">Community</li>
+                <li class="nav-item"><a href="packages.html">Package Registry</a></li>
             </ul>
         </nav>
     </aside>
@@ -775,6 +777,21 @@ bx = 400. vx = 4.
         <section id="testing" class="section">
             <h2>Testing & Assert</h2>
             <pre><code><span class="keyword">test</span> <span class="string">"t"</span>: <span class="keyword">assert</span> 1 == 1. <span class="keyword">end.</span></code></pre>
+        </section>
+        
+        <section id="community" class="section">
+            <h2>Community Packages</h2>
+            <p>Enhance Verba with community-maintained modules from the <a href="packages.html" style="color: #8E2DE2; font-weight: 600;">Package Registry</a>.</p>
+            <div class="code-block glass" style="margin-top: 1rem;">
+                <pre><code><span class="comment">/- Example: Loading environment variables with 'dotenv'</span>
+<span class="keyword">verba install</span> dotenv.
+<span class="keyword">import from file called</span> <span class="string">"dotenv.vrb"</span> <span class="keyword">as</span> d.
+
+<span class="keyword">run</span> d.load_dotenv.
+port = the result of running d.get <span class="keyword">with</span> <span class="string">"PORT"</span>, 8080.
+<span class="keyword">say</span> <span class="string">"Running on: "</span>, port.</code></pre>
+            </div>
+            <p class="tip glass"><strong>Note:</strong> Packages are locally cached in the <code>modules/</code> directory of your project.</p>
         </section>
 
         <footer>
