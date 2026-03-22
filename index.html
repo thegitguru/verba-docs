@@ -59,6 +59,7 @@
                 <li class="nav-header">Advanced</li>
                 <li class="nav-item"><a href="#pointers">Pointers & Refs</a></li>
                 <li class="nav-item"><a href="#async">Async / Await</a></li>
+                <li class="nav-item"><a href="#parallel">Parallelism</a></li>
                 <li class="nav-item"><a href="#errors">Error Handling</a></li>
                 <li class="nav-item"><a href="#native-ops">Native Ops (Files/Web)</a></li>
                 <li class="nav-item"><a href="#decorators">Decorators</a></li>
@@ -353,12 +354,29 @@ skip.  <span class="comment">/- continue</span></code></pre>
 
         <section id="match" class="section">
             <h2>Pattern Matching</h2>
+            <p>Verba features a deep pattern matcher supporting literal values, wildcards, and type checks. COLONS are required at the end of each branch, but trailing periods are optional for concise code.</p>
             <div class="code-block glass">
                 <pre><code><span class="keyword">match</span> val:
-    <span class="keyword">when</span> 1: <span class="keyword">say</span> <span class="string">"One"</span>.
-    <span class="keyword">else:</span> <span class="keyword">say</span> <span class="string">"Else"</span>.
+    <span class="keyword">when</span> 1: <span class="keyword">say</span> <span class="string">"Exactly one"</span>.
+    <span class="keyword">when</span> <span class="string">"Verba"</span>: <span class="keyword">say</span> <span class="string">"A word match"</span>.
+    
+    <span class="comment">/- Type patterns</span>
+    <span class="keyword">when</span> is number: <span class="keyword">say</span> <span class="string">"Is a numeric value"</span>.
+    <span class="keyword">when</span> is word:   <span class="keyword">say</span> <span class="string">"Is a string"</span>.
+    <span class="keyword">when</span> is flag:   <span class="keyword">say</span> <span class="string">"Is a boolean"</span>.
+    <span class="keyword">when</span> is some:   <span class="keyword">say</span> <span class="string">"Contains a value"</span>.
+
+    <span class="comment">/- Structure patterns</span>
+    <span class="keyword">when</span> {<span class="string">"type"</span>: <span class="string">"human"</span>, <span class="string">"name"</span>: _}: <span class="keyword">say</span> <span class="string">"A person with any name"</span>.
+    <span class="keyword">when</span> [1, _, 3]: <span class="keyword">say</span> <span class="string">"List starting with 1 and ending with 3"</span>.
+
+    <span class="comment">/- Universal wildcard</span>
+    <span class="keyword">when</span> _: <span class="keyword">say</span> <span class="string">"Matches anything!"</span>.
+    
+    <span class="keyword">else:</span> <span class="keyword">say</span> <span class="string">"Fallback match"</span>.
 <span class="keyword">end.</span></code></pre>
             </div>
+            <p>Supported types for <code>is</code>: <code>number</code>, <code>word</code>, <code>flag</code>, <code>list</code>, <code>map</code>, <code>none</code>, <code>some</code>.</p>
         </section>
 
         <section id="with" class="section">
@@ -487,6 +505,28 @@ ptr = &x.
 task = <span class="keyword">async run</span> job.
 <span class="keyword">await</span> res = task.</code></pre>
             </div>
+        </section>
+        
+        <section id="parallel" class="section">
+            <h2>Parallelism (Multiprocessing)</h2>
+            <p>While <code>async</code> runs code in micro-threads within the same OS process, <code>parallel</code> spawns separate OS processes to leverage multiple CPU cores. Communication is handled via return values.</p>
+            <div class="code-block glass">
+                <pre><code><span class="keyword">define</span> calculate_pi needing precision:
+    <span class="comment">/- Heavy CPU work here...</span>
+    <span class="keyword">give</span> 3.14159.
+<span class="keyword">end.</span>
+
+<span class="comment">/- Spawn parallel task</span>
+<span class="keyword">parallel run</span> calculate_pi <span class="keyword">with</span> 1000000 <span class="keyword">and save to</span> task_p.
+
+<span class="comment">/- Main process continues...</span>
+<span class="keyword">say</span> <span class="string">"Task started in another process!"</span>.
+
+<span class="comment">/- Wait and retrieve result</span>
+<span class="keyword">join</span> result = task_p.
+<span class="keyword">say</span> <span class="string">"Final Pi: "</span>, result.</code></pre>
+            </div>
+            <p class="tip glass"><strong>Tip:</strong> Use <code>parallel</code> for CPU-intensive tasks and <code>async</code> for I/O-bound tasks.</p>
         </section>
 
         <section id="errors" class="section">
